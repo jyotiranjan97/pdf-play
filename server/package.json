@@ -27,6 +27,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "aws-sdk": "^2.1628.0",
     "config": "^3.3.11",
     "express": "^4.19.2",
     "mongoose": "^8.4.0"

@@ -6,5 +6,15 @@
   "database": {
     "url": "",
     "name": ""
+  },
+  "storage": {
+    "type": "File",
+    "path": "",
+    "aws": {
+      "accessKeyId": "",
+      "secretAccessKey": "",
+      "bucket": "",
+      "region": ""
+    }
   }
 }
