@@ -1,4 +1,4 @@
-import { Document } from '../models';
+import { Document } from '../../models';
 import { IDocumentService } from './IDocumentService';
 
 export class DocumentService implements IDocumentService {

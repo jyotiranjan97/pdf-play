@@ -1,2 +1,1 @@
-export * from './DocumentService';
-export * from './IDocumentService';
+export * from './Document';
