@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { IDocumentService, DocumentService } from '../service';
+import { DocumentService, IDocumentService } from '../service';
 
 class DocumentController {
-  private documentService: IDocumentService;
+  private readonly documentService: IDocumentService;
 
   constructor() {
     this.documentService = new DocumentService();

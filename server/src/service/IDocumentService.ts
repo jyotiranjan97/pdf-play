@@ -1,3 +1,5 @@
+import { Document } from '../models';
+
 export interface IDocumentService {
   createDocument(document: Document): Promise<Document>;
 
