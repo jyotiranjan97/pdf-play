@@ -1,3 +1,4 @@
+import config from 'config';
 import { IStorageService, S3StorageService } from '../service';
 import { FileStorageService } from '../service/Storage/FileStorageService';
 
@@ -7,22 +8,24 @@ class StorageFactory {
 
   public static getInstance(): StorageFactory {
     if (!StorageFactory.instance) {
+      console.log('Creating new instance');
       StorageFactory.instance = new StorageFactory();
     }
 
     return StorageFactory.instance;
   }
 
-  registerStorageService(storageConfig: Record<string, any>) {
+  constructor() {
+    const storageConfig = config.get('storage') as any;
+
     if (!storageConfig) {
       throw new Error('Invalid storage config');
     }
 
-    if (!storageConfig.type) {
+    const storageType = storageConfig.type;
+    if (!storageType) {
       throw new Error('Storage type is required');
     }
-
-    const storageType = storageConfig.type;
 
     switch (storageType.toLowerCase()) {
       case 'file':
