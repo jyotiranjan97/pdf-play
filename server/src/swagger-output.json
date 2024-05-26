@@ -109,6 +109,34 @@
           }
         }
       }
+    },
+    "/api/v1/documents/{id}/download": {
+      "post": {
+        "tags": [
+          "Documents"
+        ],
+        "description": "Endpoint to download a document by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The id of the document to download"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document downloaded successfully"
+          },
+          "404": {
+            "description": "Document not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
     }
   }
 }

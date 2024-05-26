@@ -95,6 +95,35 @@ class DocumentController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  async downloadDocument(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        throw new Error('Document ID is required');
+      }
+
+      const document = await this.documentService.getDocumentById(id);
+
+      if (!document) {
+        res.status(404).json({ error: 'Document not found' });
+        return;
+      }
+
+      const file = await this.storageService.readFile(document.blobKey);
+
+      if (!file) {
+        throw new Error('Failed to download file');
+      }
+
+      res.setHeader('Content-Type', document.contentType);
+      res.setHeader('Content-Disposition', `attachment; filename=${document.fileName}`);
+      res.send(file);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default DocumentController;

@@ -26,7 +26,7 @@ export class FileStorageService implements IStorageService {
     await fsPromises.writeFile(filePath, data);
     console.info(`File uploaded successfully at ${filePath}`);
 
-    return filePath;
+    return fileName;
   }
 
   async readFile(blobKey: string): Promise<Buffer> {

@@ -90,4 +90,26 @@ documentRouter.delete('/:id', (req, res) => {
   documentController.deleteDocument(req, res);
 });
 
+documentRouter.post('/:id/download', (req, res) => {
+  /* #swagger.tags = ['Documents']
+      #swagger.description = 'Endpoint to download a document by id'
+      #swagger.parameters['id'] = {
+        in: 'path',
+        required: true,
+        type: 'string',
+        description: 'The id of the document to download'
+      }
+      #swagger.responses[200] = {
+        description: 'Document downloaded successfully'
+      }
+      #swagger.responses[404] = {
+        description: 'Document not found'
+      }
+      #swagger.responses[500] = {
+        description: 'Server error'
+      }
+    */
+  documentController.downloadDocument(req, res);
+});
+
 export { documentRouter };
