@@ -20,6 +20,21 @@ class DocumentController {
     }
   }
 
+  async getDocumentById(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        throw new Error('Document ID is required');
+      }
+
+      const document = await this.documentService.getDocumentById(id);
+      res.status(200).json(document);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
   async createDocument(req: Request, res: Response) {
     try {
       const file = req.file;
@@ -44,7 +59,7 @@ class DocumentController {
         contentType: fileType,
         blobKey: resp,
         size: fileSize,
-        uploadedAt: new Date(),
+        uploadedAt: new Date()
       };
 
       const newDocument = await this.documentService.createDocument(document);
@@ -54,20 +69,14 @@ class DocumentController {
     }
   }
 
-  async updateDocument(req: Request, res: Response) {
-    try {
-      const { id } = req.params;
-      const document = req.body;
-      const updatedDocument = await this.documentService.updateDocument(id, document);
-      res.status(200).json(updatedDocument);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
-
   async deleteDocument(req: Request, res: Response) {
     try {
       const { id } = req.params;
+
+      if (!id) {
+        throw new Error('Document ID is required');
+      }
+
       await this.documentService.deleteDocument(id);
       res.status(204).end();
     } catch (error) {

@@ -8,6 +8,7 @@ export interface IDocument extends mongoose.Document {
   size: number;
   uploadedAt: Date;
   metaData?: Record<string, any>;
+  isDeleted: boolean;
 }
 
 const documentSchema = new mongoose.Schema<IDocument>({
@@ -17,6 +18,7 @@ const documentSchema = new mongoose.Schema<IDocument>({
   size: { type: Number, required: true },
   uploadedAt: { type: Date, required: true },
   metaData: { type: Object },
+  isDeleted: { type: Boolean, default: false }
 });
 
 export const DocumentModel = mongoose.model<IDocument>('Document', documentSchema);

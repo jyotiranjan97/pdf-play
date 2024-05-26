@@ -8,7 +8,5 @@ export interface IDocumentService {
 
   getDocuments(): Promise<IDocument[]>;
 
-  updateDocument(documentId: string, document: Document): Promise<IDocument>;
-
   deleteDocument(documentId: string): Promise<IDocument>;
 }

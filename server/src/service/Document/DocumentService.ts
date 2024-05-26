@@ -10,27 +10,58 @@ export class DocumentService implements IDocumentService {
       blobKey: document.blobKey,
       size: document.size,
       uploadedAt: document.uploadedAt,
-      metaData: document.metaData,
+      metaData: document.metaData
     });
 
-    const resp = await documentModel.save();
-    return resp;
+    try {
+      const resp = await documentModel.save();
+      return resp;
+    } catch (error) {
+      throw new Error('Failed to save document');
+    }
   }
 
   async getDocumentById(documentId: string): Promise<IDocument> {
-    throw new Error('Method not implemented.');
+    if (!documentId) {
+      throw new Error('Document ID is required');
+    }
+
+    try {
+      const resp = await DocumentModel.findOne({ _id: documentId })
+        .where('isDeleted')
+        .equals(false);
+
+      if (!document) {
+        throw new Error('Document not found');
+      }
+
+      return resp;
+    } catch (error) {
+      throw new Error('Failed to get document');
+    }
   }
 
   async getDocuments(): Promise<IDocument[]> {
-    const documents = await DocumentModel.find();
-    return documents;
-  }
-
-  async updateDocument(documentId: string, document: Document): Promise<IDocument> {
-    throw new Error('Method not implemented.');
+    try {
+      const resp = await DocumentModel.find().where('isDeleted').equals(false);
+      return resp;
+    } catch (error) {
+      throw new Error('Failed to get documents');
+    }
   }
 
   async deleteDocument(documentId: string): Promise<IDocument> {
-    throw new Error('Method not implemented.');
+    try {
+      const document = await this.getDocumentById(documentId);
+
+      if (!document) {
+        throw new Error('Document not found');
+      }
+
+      const resp = await DocumentModel.findByIdAndUpdate(documentId, { isDeleted: true });
+      return resp;
+    } catch (error) {
+      throw new Error('Failed to delete document');
+    }
   }
 }
