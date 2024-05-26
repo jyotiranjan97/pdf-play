@@ -1,11 +1,14 @@
 import { Request, Response } from 'express';
-import { DocumentService, IDocumentService } from '../service';
+import { DocumentService, IDocumentService, IStorageService } from '../service';
+import { storageFactory } from '../utils';
 
 class DocumentController {
   private readonly documentService: IDocumentService;
+  private readonly storageService: IStorageService;
 
   constructor() {
     this.documentService = new DocumentService();
+    this.storageService = storageFactory.getStorageService();
   }
 
   async getDocuments(_: Request, res: Response) {
@@ -19,7 +22,31 @@ class DocumentController {
 
   async createDocument(req: Request, res: Response) {
     try {
-      const document = req.body;
+      const file = req.file;
+
+      if (!file) {
+        throw new Error('File not found');
+      }
+
+      const fileName = file.originalname;
+      const fileSize = file.size;
+      const fileType = file.mimetype;
+      const fileData = file.buffer;
+
+      const resp = await this.storageService.uploadFile(fileName, fileData);
+
+      if (!resp) {
+        throw new Error('Failed to upload file');
+      }
+
+      const document = {
+        fileName: fileName,
+        contentType: fileType,
+        blobKey: resp,
+        size: fileSize,
+        uploadedAt: new Date(),
+      };
+
       const newDocument = await this.documentService.createDocument(document);
       res.status(201).json(newDocument);
     } catch (error) {
@@ -49,4 +76,4 @@ class DocumentController {
   }
 }
 
-export { DocumentController };
+export default DocumentController;

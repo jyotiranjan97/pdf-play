@@ -1,13 +1,14 @@
-import { Document } from '../../models';
+import { IDocument } from '../../models';
+import { DocumentDto } from './DocumentDto';
 
 export interface IDocumentService {
-  createDocument(document: Document): Promise<Document>;
+  createDocument(document: DocumentDto): Promise<IDocument>;
 
-  getDocumentById(documentId: string): Promise<Document>;
+  getDocumentById(documentId: string): Promise<IDocument>;
 
   getDocuments(): Promise<Document[]>;
 
-  updateDocument(documentId: string, document: Document): Promise<Document>;
+  updateDocument(documentId: string, document: Document): Promise<IDocument>;
 
-  deleteDocument(documentId: string): Promise<Document>;
+  deleteDocument(documentId: string): Promise<IDocument>;
 }

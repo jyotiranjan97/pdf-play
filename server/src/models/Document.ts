@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export interface Document extends mongoose.Document {
+export interface IDocument extends mongoose.Document {
   _id: string;
   fileName: string;
   contentType: string;
@@ -10,7 +10,7 @@ export interface Document extends mongoose.Document {
   metaData?: Record<string, any>;
 }
 
-const documentSchema = new mongoose.Schema<Document>({
+const documentSchema = new mongoose.Schema<IDocument>({
   fileName: { type: String, required: true },
   contentType: { type: String, required: true },
   blobKey: { type: String, required: true },
@@ -19,4 +19,4 @@ const documentSchema = new mongoose.Schema<Document>({
   metaData: { type: Object },
 });
 
-export const DocumentModel = mongoose.model<Document>('Document', documentSchema);
+export const DocumentModel = mongoose.model<IDocument>('Document', documentSchema);
