@@ -29,6 +29,12 @@ class DocumentController {
       }
 
       const document = await this.documentService.getDocumentById(id);
+
+      if (!document) {
+        res.status(404).json({ error: 'Document not found' });
+        return;
+      }
+
       res.status(200).json(document);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -77,7 +83,13 @@ class DocumentController {
         throw new Error('Document ID is required');
       }
 
-      await this.documentService.deleteDocument(id);
+      const resp = await this.documentService.deleteDocument(id);
+
+      if (!resp) {
+        res.status(404).json({ error: 'Document not found' });
+        return;
+      }
+
       res.status(204).end();
     } catch (error) {
       res.status(500).json({ error: error.message });

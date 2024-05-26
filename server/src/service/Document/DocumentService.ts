@@ -31,10 +31,6 @@ export class DocumentService implements IDocumentService {
         .where('isDeleted')
         .equals(false);
 
-      if (!document) {
-        throw new Error('Document not found');
-      }
-
       return resp;
     } catch (error) {
       throw new Error('Failed to get document');
@@ -52,12 +48,6 @@ export class DocumentService implements IDocumentService {
 
   async deleteDocument(documentId: string): Promise<IDocument> {
     try {
-      const document = await this.getDocumentById(documentId);
-
-      if (!document) {
-        throw new Error('Document not found');
-      }
-
       const resp = await DocumentModel.findByIdAndUpdate(documentId, { isDeleted: true });
       return resp;
     } catch (error) {

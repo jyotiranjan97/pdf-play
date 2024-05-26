@@ -1,17 +1,25 @@
 import config from 'config';
 import express from 'express';
 import mongoose from 'mongoose';
+import swaggerUi from 'swagger-ui-express';
 import { documentRouter } from './routes/documentRoutes';
+import swaggerConfig from './swagger-output.json';
 
 const app = express();
 const port = config.get('server.port') as number;
 const host = config.get('server.host') as string;
+const isSwaggerEnabled = config.get('server.isSwaggerEnabled') as boolean;
 
 connectToDatabase();
 
 app.get('/', (_, res) => {
-  res.send('Hello World!');
+  // #swagger.ignore = true
+  res.redirect('/docs');
 });
+
+if (isSwaggerEnabled) {
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+}
 
 app.use('/api/v1/documents', documentRouter);
 

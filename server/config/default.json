@@ -1,7 +1,8 @@
 {
   "server": {
     "port": 0,
-    "host": ""
+    "host": "",
+    "isSwaggerEnabled": false
   },
   "database": {
     "url": "",

@@ -13,52 +13,99 @@
   "paths": {
     "/api/v1/documents/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Documents"
+        ],
+        "description": "Endpoint to get all documents",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Documents retrieved successfully"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Documents"
+        ],
+        "description": "Endpoint to create a document",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "type": "file",
+            "description": "The file to upload"
+          }
+        ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Document created successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
     },
     "/api/v1/documents/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Documents"
+        ],
+        "description": "Endpoint to get a document by id",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "The id of the document to retrieve"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Document retrieved successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Document not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       },
-      "put": {
-        "description": "",
+      "delete": {
+        "tags": [
+          "Documents"
+        ],
+        "description": "Endpoint to delete a document by id",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "The id of the document to delete"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "Document deleted successfully"
+          },
+          "404": {
+            "description": "Document not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
