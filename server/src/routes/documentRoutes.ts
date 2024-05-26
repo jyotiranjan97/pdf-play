@@ -9,10 +9,7 @@ const documentRouter = Router();
 const documentController = new DocumentController();
 
 documentRouter.get('/', (_, res) => {
-  res.send([
-    { id: 1, name: 'Document 1' },
-    { id: 2, name: 'Document 2' },
-  ]);
+  documentController.getDocuments(_, res);
 });
 
 documentRouter.get('/:id', (req, res) => {

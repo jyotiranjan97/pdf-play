@@ -6,7 +6,7 @@ export interface IDocumentService {
 
   getDocumentById(documentId: string): Promise<IDocument>;
 
-  getDocuments(): Promise<Document[]>;
+  getDocuments(): Promise<IDocument[]>;
 
   updateDocument(documentId: string, document: Document): Promise<IDocument>;
 

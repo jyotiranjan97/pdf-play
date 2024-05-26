@@ -21,8 +21,9 @@ export class DocumentService implements IDocumentService {
     throw new Error('Method not implemented.');
   }
 
-  async getDocuments(): Promise<Document[]> {
-    throw new Error('Method not implemented.');
+  async getDocuments(): Promise<IDocument[]> {
+    const documents = await DocumentModel.find();
+    return documents;
   }
 
   async updateDocument(documentId: string, document: Document): Promise<IDocument> {
