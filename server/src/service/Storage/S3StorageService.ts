@@ -9,16 +9,16 @@ export class S3StorageService implements IStorageService {
     if (!storageConfig) {
       throw new Error('Invalid storage config');
     }
-    const { accessKeyId, secretAccessKey, region, bucketName } = storageConfig;
+    const { accessKeyId, secretAccessKey, region, bucket } = storageConfig;
     this.createS3Service(accessKeyId, secretAccessKey, region);
-    this.bucketName = bucketName;
+    this.bucketName = bucket;
   }
 
   private createS3Service(accessKeyId: string, secretAccessKey: string, region: string) {
     this.s3 = new AWS.S3({
       accessKeyId,
       secretAccessKey,
-      region,
+      region
     });
   }
 
@@ -34,7 +34,7 @@ export class S3StorageService implements IStorageService {
     const params = {
       Bucket: this.bucketName,
       Key: fileName,
-      Body: data,
+      Body: data
     };
 
     await this.s3.upload(params).promise();
@@ -50,7 +50,7 @@ export class S3StorageService implements IStorageService {
 
     const params = {
       Bucket: this.bucketName,
-      Key: blobKey,
+      Key: blobKey
     };
 
     const data = await this.s3.getObject(params).promise();
@@ -66,7 +66,7 @@ export class S3StorageService implements IStorageService {
 
     const params = {
       Bucket: this.bucketName,
-      Key: blobKey,
+      Key: blobKey
     };
 
     await this.s3.deleteObject(params).promise();
