@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import config from 'config';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -16,6 +17,8 @@ app.get('/', (_, res) => {
   // #swagger.ignore = true
   res.redirect('/docs');
 });
+
+app.use(bodyParser.json());
 
 if (isSwaggerEnabled) {
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
