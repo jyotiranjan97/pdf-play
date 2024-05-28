@@ -1,6 +1,7 @@
 import config from 'config';
-import { IStorageService, S3StorageService } from '../service';
+import { IStorageService } from '../service';
 import { FileStorageService } from '../service/Storage/FileStorageService';
+import { S3StorageService } from '../service/Storage/S3StorageService';
 
 class StorageFactory {
   public storageService: IStorageService;
