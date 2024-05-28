@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import config from 'config';
+import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
@@ -19,6 +20,12 @@ app.get('/', (_, res) => {
 });
 
 app.use(bodyParser.json());
+
+app.use(
+  cors({
+    origin: 'http://localhost:*'
+  })
+);
 
 if (isSwaggerEnabled) {
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
